@@ -1,0 +1,48 @@
+@media only screen and (min-width: 60em){
+    #leftpanel{
+        display: none;
+    }
+    #panelbutton{
+        display: none;
+    }
+    #container{
+        float: right;
+        min-width: calc(100% -268px);
+    }
+
+}
+
+@media only screen and (max-width: 60em){
+    #listdiv{
+        display: none;
+    }
+    #container{
+        float: right;
+        min-width: 100%;
+    }
+
+}
+
+#container{
+        float: right;
+        width: calc(100% - 256px);
+    }
+    
+#listdiv{
+    float: left;
+}
+
+#index :not(INPUT):not(TEXTAREA) {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+}
+
+.ui-page-theme-a .ui-btn {
+    background: rgba(0,0,0,0);
+}
+
+.list {
+
+}
