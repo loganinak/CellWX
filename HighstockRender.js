@@ -20,9 +20,9 @@ $(document).on('pageshow', '#index', function () {
         var imei = parseInt(urlarray['imei']);
 
     $(document).ready(function () {
-        var name;
-        $.getJSON("/getStationName.php?imei=" + imei, function (json) {
-            name = json;
+        var info;
+        $.getJSON("/getStationInfo.php?imei=" + imei, function (json) {
+            info = json;
         });
         var d = new Date();
         var n = d.getTimezoneOffset();
@@ -83,7 +83,7 @@ $(document).on('pageshow', '#index', function () {
                         selected: 1
                     },
                     title: {
-                        text: name
+                        text: info[6]
                     },
                     yAxis: [{
                             labels: {
@@ -128,8 +128,8 @@ $(document).on('pageshow', '#index', function () {
                                 }
                             },
                             plotBands: [{
-                                    from: 100,
-                                    to: 180,
+                                    from: info[7],
+                                    to: info[8],
                                     color: 'rgba(51, 204, 51, 0.2)',
                                     label: {
                                         text: 'Viable Wind Direction'
