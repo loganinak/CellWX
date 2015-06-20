@@ -1,3 +1,5 @@
+/* global info */
+
 $.extend({
     getUrlVars: function () {
         var vars = [], hash;
@@ -14,13 +16,14 @@ $.extend({
         return $.getUrlVars()[name];
     }
 });
-
+var info;
 $(document).on('pageshow', '#index', function () {
-        var urlarray = $.getUrlVars('imei');
-        var imei = parseInt(urlarray['imei']);
+
+    var urlarray = $.getUrlVars('imei');
+    var imei = parseInt(urlarray['imei']);
 
     $(document).ready(function () {
-        var info;
+
         $.getJSON("/getStationInfo.php?imei=" + imei, function (json) {
             info = json;
         });
@@ -42,6 +45,33 @@ $(document).on('pageshow', '#index', function () {
                         dataLength = data.length,
                         i = 0;
                 for (i; i < dataLength; i += 1) {
+                    if (i > 1) {
+                        var timegap = data[i][1] - data[i - 1][1];
+                        if (timegap > 3600000) {
+                            var numGaps = timegap / 3600000;
+                            var i2 = 0;
+                            for (i2; i2 <= numGaps; i2 += 1) {
+                                var date = data[i][1] + (3600000 * i2);
+                                temperature.push([
+                                    date, // the date
+                                    null  //temperature
+                                ]);
+                                speed.push([
+                                    date, // the date
+                                    null, //minWindSpeed
+                                    null  //maxWindSpeed
+                                ]);
+                                direction.push([
+                                    date, //the date
+                                    null  //windDir
+                                ]);
+                                avgWind.push([
+                                    date, //date
+                                    null  //avgWindSpeed
+                                ]);
+                            }
+                        }
+                    }
                     temperature.push([
                         data[i][1], // the date
                         data[i][6]  //temperature
@@ -143,6 +173,21 @@ $(document).on('pageshow', '#index', function () {
                             lineWidth: 2,
                             lineColor: '#33CC33'
                         }],
+                    xAxis: [{
+                            breaks: [{
+                                    breakSize: 3600000
+                                }],
+                            dateTimeLabelFormats: {
+                                millisecond: '%H',
+                                second: '%H',
+                                minute: '%H',
+                                hour: '%H',
+                                day: '%H',
+                                week: '%H',
+                                month: '%H',
+                                year: '%H'
+                            }
+                        }],
                     series: [{
                             type: 'line',
                             name: 'Air Temp',
@@ -150,6 +195,10 @@ $(document).on('pageshow', '#index', function () {
                                 valueSuffix: ' °F'
                             },
                             data: temperature,
+                            marker: {
+                                enabled: true,
+                                radius: 3
+                            },
                             color: '#CC0000'
                         }, {
                             type: 'arearange',
@@ -158,6 +207,10 @@ $(document).on('pageshow', '#index', function () {
                                 valueSuffix: ' mph'
                             },
                             data: speed,
+                            marker: {
+                                enabled: true,
+                                radius: 3
+                            },
                             yAxis: 1,
                             color: '#7CB5EC',
                             fillColor: {
@@ -174,6 +227,10 @@ $(document).on('pageshow', '#index', function () {
                             }
                         }, {
                             type: 'line',
+                            marker: {
+                                enabled: true,
+                                radius: 3
+                            },
                             name: 'Avg. Wind Speed',
                             tooltip: {
                                 valueSuffix: ' mph'
@@ -183,6 +240,10 @@ $(document).on('pageshow', '#index', function () {
                             color: '#000000'
                         }, {
                             type: 'line',
+                            marker: {
+                                enabled: true,
+                                radius: 3
+                            },
                             name: 'Wind Direction',
                             tooltip: {
                                 valueSuffix: ' ° From N'
