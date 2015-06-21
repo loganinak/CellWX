@@ -36,7 +36,6 @@ $(document).on('pageshow', '#index', function () {
                 }
             });
             $.getJSON('/getWindData.php?imei=' + imei, function (data) {
-
                 // split the data set into ohlc and volume
                 var temperature = [],
                         speed = [],
@@ -44,32 +43,30 @@ $(document).on('pageshow', '#index', function () {
                         avgWind = [],
                         dataLength = data.length,
                         i = 0;
+
                 for (i; i < dataLength; i += 1) {
+                    //adds null points between data gaps greater than an hour
                     if (i > 1) {
                         var timegap = data[i][1] - data[i - 1][1];
                         if (timegap > 3600000) {
-                            var numGaps = timegap / 3600000;
-                            var i2 = 0;
-                            for (i2; i2 <= numGaps; i2 += 1) {
-                                var date = data[i][1] + (3600000 * i2);
-                                temperature.push([
-                                    date, // the date
-                                    null  //temperature
-                                ]);
-                                speed.push([
-                                    date, // the date
-                                    null, //minWindSpeed
-                                    null  //maxWindSpeed
-                                ]);
-                                direction.push([
-                                    date, //the date
-                                    null  //windDir
-                                ]);
-                                avgWind.push([
-                                    date, //date
-                                    null  //avgWindSpeed
-                                ]);
-                            }
+                            var date = timegap / 2 + data[i-1][1];
+                            temperature.push([
+                                date, // the date
+                                null  //temperature
+                            ]);
+                            speed.push([
+                                date, // the date
+                                null, //minWindSpeed
+                                null  //maxWindSpeed
+                            ]);
+                            direction.push([
+                                date, //the date
+                                null  //windDir
+                            ]);
+                            avgWind.push([
+                                date, //date
+                                null  //avgWindSpeed
+                            ]);
                         }
                     }
                     temperature.push([
@@ -110,7 +107,20 @@ $(document).on('pageshow', '#index', function () {
                         }
                     },
                     rangeSelector: {
-                        selected: 1
+                        buttons: [{
+                                count: 12,
+                                type: 'hour',
+                                text: '12Hr'
+                            }, {
+                                count: 24,
+                                type: 'hour',
+                                text: '24Hr'
+                            }, {
+                                type: 'all',
+                                text: 'All'
+                            }],
+                        inputEnabled: false,
+                        selected: 0
                     },
                     title: {
                         text: info[6]
