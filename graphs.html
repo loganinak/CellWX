@@ -1,0 +1,44 @@
+﻿<html>        
+    <head>
+        <title>Cellwx</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>        
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <link rel="stylesheet" href="cellwxstyle.css">
+        <script src="http://momentjs.com/downloads/moment.min.js"></script>
+        <script src="http://momentjs.com/downloads/moment-timezone-with-data-2010-2020.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.js"></script>
+        <script src="http://code.highcharts.com/stock/highstock.js"></script>
+        <script src="http://code.highcharts.com/highcharts-more.js"></script>
+        <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+        <script src="/ExtraJavascripts.js"></script>
+        <script src="/GraphRender.js"></script>
+    </head>
+
+    <body>
+
+        <div data-url="index" data-role="page" id="index" data-ajax="true">
+
+            <div data-role="panel" id="leftpanel" data-position="left" data-display="overlay">
+                
+            </div>
+            <div data-role="header" data-theme="b">
+                <h1>CellWX</h1>
+                <a href="#leftpanel" id="panelbutton" data-icon="carat-r" data-iconshadow="false">More Stations</a>
+            </div>
+            <div data-role="content">
+                
+                <div id="listdiv">
+                    <ul data-role="listview" id="sortedList" class="list" style="width: 272px">
+                        <li data-role="list-divider">Stations</li>
+
+                    </ul>
+                </div>                               
+                <div id="container" style="height: 800px;"></div>
+                    
+            </div>
+        </div>
+    </body>
+</html>

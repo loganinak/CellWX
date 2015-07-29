@@ -97,7 +97,7 @@ $(document).on('pageshow', '#index', function () {
 
                 setTimeout(function () {
                     // create the chart
-                    $('#container').highcharts('StockChart', {
+                    $('#container2').highcharts('StockChart', {
                         exporting: {enabled: false},
                         credits: {
                             enabled: false
@@ -134,8 +134,8 @@ $(document).on('pageshow', '#index', function () {
                             inputEnabled: false,
                             selected: 0
                         },
-                        title: {
-                            text: info[6]
+                        navigator: {
+                            enabled: false
                         },
                         yAxis: [{
                                 labels: {
@@ -148,7 +148,7 @@ $(document).on('pageshow', '#index', function () {
                                         color: '#CC0000'
                                     }
                                 },
-                                height: '20%',
+                                height: '30%',
                                 lineWidth: 2,
                                 lineColor: '#CC0000'
                             }, {
@@ -162,8 +162,8 @@ $(document).on('pageshow', '#index', function () {
                                         color: '#7cb5ec'
                                     }
                                 },
-                                top: '25%',
-                                height: '20%',
+                                top: '33%',
+                                height: '30%',
                                 offset: 0,
                                 lineWidth: 2,
                                 lineColor: '#7cb5ec'
@@ -189,29 +189,11 @@ $(document).on('pageshow', '#index', function () {
                                     }],
                                 min: 0,
                                 max: 359,
-                                top: '50%',
-                                height: '20%',
+                                top: '66%',
+                                height: '30%',
                                 offset: 0,
                                 lineWidth: 2,
                                 lineColor: '#33CC33'
-                            }, {
-                                labels: {
-                                    align: 'right',
-                                    x: -3
-                                },
-                                title: {
-                                    text: 'Battery Voltage',
-                                    style: {
-                                        color: '#999900'
-                                    }
-                                },
-                                top: '75%',
-                                height: '20%',
-                                offset: 0,
-                                lineWidth: 2,
-                                lineColor: '#999900',
-                                min: 3.6,
-                                max: 4.25
                             }],
                         xAxis: [{
                                 breaks: [{
@@ -291,18 +273,6 @@ $(document).on('pageshow', '#index', function () {
                                 data: direction,
                                 yAxis: 2,
                                 color: '#33CC33'
-                            }, {
-                                type: 'line',
-                                name: 'Battery Voltage',
-                                tooltip: {
-                                    valueSuffix: ' V'
-                                },
-                                data: vBat,
-                                marker: {
-                                    enabled: true,
-                                    radius: 3
-                                }, yAxis: 3,
-                                color: '#999900'
                             }]
                     });
                 }, 250);
@@ -311,3 +281,4 @@ $(document).on('pageshow', '#index', function () {
         });
     });
 });
+
